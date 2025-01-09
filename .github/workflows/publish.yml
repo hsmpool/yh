@@ -58,7 +58,7 @@ jobs:
         run: dotnet build $PROJECT --configuration $BUILD_CONFIG --no-restore
 
       - name: Package
-        run: dotnet pack $PROJECT --configuration $BUILD_CONFIG --no-build --no-restore -p:Version=${{ needs.calc-version.outputs.semVer }}
+        run: dotnet pack $PROJECT --configuration $BUILD_CONFIG --no-build --no-restore -p:PackageID=hsmpool.yh -p:Version=${{ needs.calc-version.outputs.semVer }}
 
       - name: Publish
-        run: dotnet nuget push $PROJECT/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push $PROJECT/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
