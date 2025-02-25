@@ -92,6 +92,14 @@ internal static class NativeMethods
         YhAlgorithm algorithm);
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern YhReturnCode yh_util_get_public_key(
+        IntPtr session,
+        ushort id,
+        [Out] byte[] output,
+        ref UIntPtr outputLength,
+        ref YhAlgorithm algorithm);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
     public static extern YhReturnCode yh_util_list_objects(
         IntPtr session,
         ushort id,

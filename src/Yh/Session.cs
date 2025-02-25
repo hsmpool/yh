@@ -56,6 +56,24 @@ namespace Yh
             return outputBuffer.Take((int)outputLength).ToArray();
         }
 
+        public (byte[], YhAlgorithm) GetPublicKey(ushort objectId)
+        {
+            var outputBuffer = new byte[2091];
+            var outputLength = (UIntPtr)outputBuffer.Length;
+            var algo = (YhAlgorithm)0;
+
+            var rc = NativeMethods.yh_util_get_public_key(
+                _handle,
+                objectId,
+                outputBuffer,
+                ref outputLength,
+                ref algo);
+
+            YhException.ThrowIfNotSuccess(rc);
+
+            return (outputBuffer.Take((int)outputLength).ToArray(), algo);
+        }
+
         public ushort ImportAuthenticationKey(
             string password,
             ushort? keyId,
